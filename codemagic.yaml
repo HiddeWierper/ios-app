@@ -3,25 +3,30 @@ workflows:
     name: Build iOS IPA
     max_build_duration: 60
     environment:
-      vars:
-        APP_SCHEME: "SchoonmaakbeheerPlatform"
-      flutter: none # React Native gebruikt ook Node/npm, maar dit mag gewoon blijven
+      flutter: none
       xcode: latest
+      vars:
+        APP_SCHEME: "NYP"
     scripts:
-      - name: Install CocoaPods dependencies
+      - name: Install CocoaPods
         script: |
-          pod install || true
+          sudo gem install cocoapods
+          pod install --repo-update
+
       - name: Build iOS
         script: |
-          xcodebuild -scheme $APP_SCHEME \
+          xcodebuild -workspace "NYP.xcworkspace" \
+                     -scheme $APP_SCHEME \
                      -sdk iphoneos \
                      -configuration Release \
                      archive -archivePath $CM_BUILD_DIR/build/App.xcarchive \
                      CODE_SIGNING_ALLOWED=NO
+
           xcodebuild -exportArchive \
                      -archivePath $CM_BUILD_DIR/build/App.xcarchive \
                      -exportPath $CM_BUILD_DIR/build \
                      -exportOptionsPlist ExportOptions.plist \
                      CODE_SIGNING_ALLOWED=NO
+
     artifacts:
       - build/*.ipa
