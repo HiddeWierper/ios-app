@@ -5,7 +5,7 @@ workflows:
     environment:
       vars:
         APP_SCHEME: "SchoonmaakbeheerPlatform"
-      flutter: stable # React Native gebruikt ook Node/npm, maar dit mag gewoon blijven
+      flutter: none # React Native gebruikt ook Node/npm, maar dit mag gewoon blijven
       xcode: latest
     scripts:
       - name: Install CocoaPods dependencies
