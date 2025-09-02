@@ -9,8 +9,9 @@ workflows:
     scripts:
       - name: Install CocoaPods
         script: |
-          sudo gem install cocoapods
+          sudo gem install cocoapods -v 1.12.1
           pod install --repo-update
+
 
       - name: Build iOS
         script: |
