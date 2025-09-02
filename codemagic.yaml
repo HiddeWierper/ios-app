@@ -9,7 +9,7 @@ workflows:
     scripts:
       - name: Build iOS
         script: |
-          xcodebuild -workspace "NYP.xcworkspace" \
+          xcodebuild -workspace "SchoonmaakbeheerPlatform.xcworkspace" \
                      -scheme $APP_SCHEME \
                      -sdk iphoneos \
                      -configuration Release \
