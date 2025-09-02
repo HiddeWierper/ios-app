@@ -3,7 +3,6 @@ workflows:
     name: Build iOS IPA
     max_build_duration: 60
     environment:
-      flutter: none
       xcode: latest
       vars:
         APP_SCHEME: "NYP"
