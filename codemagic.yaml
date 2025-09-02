@@ -7,12 +7,6 @@ workflows:
       vars:
         APP_SCHEME: "NYP"
     scripts:
-      - name: Install CocoaPods
-        script: |
-          sudo gem install cocoapods -v 1.12.1
-          pod install --repo-update
-
-
       - name: Build iOS
         script: |
           xcodebuild -workspace "NYP.xcworkspace" \
