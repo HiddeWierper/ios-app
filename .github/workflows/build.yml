@@ -1,0 +1,31 @@
+name: iOS Build
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: sudo xcode-select -switch /Applications/Xcode.app
+
+      - run: pod install || true
+
+      - run: |
+          xcodebuild -scheme "SchoonmaakbeheerPlatform" \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     archive -archivePath $PWD/build/App.xcarchive \
+                     CODE_SIGNING_ALLOWED=NO
+
+          xcodebuild -exportArchive \
+                     -archivePath $PWD/build/App.xcarchive \
+                     -exportPath $PWD/build \
+                     -exportOptionsPlist ExportOptions.plist \
+                     CODE_SIGNING_ALLOWED=NO
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: iOS-App
+          path: build/*.ipa
