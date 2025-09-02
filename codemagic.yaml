@@ -3,24 +3,21 @@ workflows:
     name: Build iOS IPA
     max_build_duration: 60
     environment:
-      xcode: latest
       vars:
         APP_SCHEME: "SchoonmaakbeheerPlatform"
+      xcode: latest
     scripts:
       - name: Build iOS
         script: |
-          xcodebuild -workspace "SchoonmaakbeheerPlatform.xcworkspace" \
-                     -scheme $APP_SCHEME \
+          xcodebuild -scheme $APP_SCHEME \
                      -sdk iphoneos \
                      -configuration Release \
                      archive -archivePath $CM_BUILD_DIR/build/App.xcarchive \
                      CODE_SIGNING_ALLOWED=NO
-
           xcodebuild -exportArchive \
                      -archivePath $CM_BUILD_DIR/build/App.xcarchive \
                      -exportPath $CM_BUILD_DIR/build \
                      -exportOptionsPlist ExportOptions.plist \
                      CODE_SIGNING_ALLOWED=NO
-
     artifacts:
       - build/*.ipa
